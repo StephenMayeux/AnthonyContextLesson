@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 0
+    }
+  }
+
+  render() {
+    const { counter } = this.state;
+    return (
+      <AppContainer
+        counter={counter}
+        updateCounter={() => this.setState({ counter: counter + 1 })}
+      />
+    )
+  }
+}
+
+const AppContainer = (props) => {
+  const { counter, updateCounter } = props;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <button onClick={() => updateCounter()}>Increase Number</button>
+      <DisplayCounter
+        counter={counter}
+      />
+    </React.Fragment>
   );
+}
+
+const DisplayCounter = (props) => {
+  const { counter } = props;
+  return (
+    <h1>{counter}</h1>
+  )
 }
 
 export default App;
